@@ -118,9 +118,6 @@
 
     <button id="theme-toggle" class="theme-btn">🌙</button>
 
-    <a href="https://wa.me/77081790906" class="whatsapp-button" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-    </a>
 
     <script src="https://unpkg.com/imask"></script>
     <script>
@@ -146,7 +143,29 @@
             document.getElementById('order-form-section').scrollIntoView({ behavior: 'smooth' });
         }
 
+    </script>
 
+    <script>
+        // Функция выбора продукта
+        function selectProduct(name) {
+            const select = document.getElementById('id_order_product');
+            const val = name.toLowerCase();
+            if (val.includes('латте')) select.value = 'latte';
+            else if (val.includes('капучино')) select.value = 'cappuccino';
+            else if (val.includes('синнабон')) select.value = 'sinnabon';
+            else if (val.includes('вафли')) select.value = 'vafli';
+            else if (val.includes('пончик')) select.value = 'combo';
+
+            document.getElementById('order-form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        const phoneInput = document.getElementById('phone-input');
+        if(phoneInput) {
+            IMask(phoneInput, { mask: '+{7} (000) 000-00-00' });
+        }
+
+        // Логика отправки в Telegram
         document.getElementById('orderForm').onsubmit = function(e) {
             e.preventDefault();
 
@@ -166,7 +185,7 @@
                     alert("Спасибо! Заказ успешно отправлен нашему бариста. ✨");
                     document.getElementById('orderForm').reset();
                 } else {
-                    alert("Ошибка при отправке. Попробуйте позже.");
+                    alert("Ошибка при отправке. Проверьте настройки бота.");
                 }
             })
             .catch(error => {
